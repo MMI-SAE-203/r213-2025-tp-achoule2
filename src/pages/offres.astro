@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+
 const offres = [
     {
         "adresse": "2821 Lake Sevilla, Palm Harbor, TX",
@@ -10,7 +12,7 @@ const offres = [
         "nomMaison": "Beverly Springfield",
         "prix": 2700,
         "surface": 45,
-        "imgUrl": "image1.png"
+        "imgUrl": "maisonbeverly.jpg"
     },
     {
         "adresse": "2699 Green Valley, Highland Lake",
@@ -21,7 +23,7 @@ const offres = [
         "nomMaison": "Palm Harbor",
         "prix": 2095,
         "surface": 42,
-        "imgUrl": "image2.png"
+        "imgUrl": "palm.jpg"
     },
     {
         "adresse": "909 Woodland St, Michigan, IN",
@@ -32,7 +34,7 @@ const offres = [
         "nomMaison": "Faulkner Ave",
         "prix": 4550,
         "surface": 80,
-        "imgUrl": "image3.png"
+        "imgUrl": "Faulkner Ave.jpg"
     }
 ];
 ---
@@ -41,11 +43,36 @@ const offres = [
     <h1 class="text-4xl font-extrabold text-gray-800 text-center mt-6 sm:text-5xl sm:mt-10">Offres</h1>
 </Base>
 
+<div x-data="{ showFavorites: false }">
+    <button @click="showFavorites = !showFavorites" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">
+        <span x-show="!showFavorites">Afficher les favoris</span>
+        <span x-show="showFavorites">Afficher tout</span>
+    </button>
 
-<div>
-  <ul>
-    {offres.map((offre) => (
-      <li key={offre.id}>{offre.nomMaison}</li>
-    ))}
-  </ul>
+    <div x-show="!showFavorites" class="offres-container">
+        {offres.map((offre) => (
+            <Card
+                {...offre}
+            />
+        ))}
+    </div>
+
+    <div x-show="showFavorites" class="offres-container">
+        {offres.map((offre) => offre.favori ? (
+            <Card
+                {...offre}
+            />
+        ) : null)}
+    </div>
 </div>
+
+<style>
+.offres-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+}
+
+
+</style>

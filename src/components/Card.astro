@@ -1,0 +1,18 @@
+---
+
+const { ...offre } = Astro.props;
+---
+
+<div class="max-w-xs bg-white rounded-lg shadow-md overflow-hidden">
+  <img src={offre.imgUrl} alt={offre.nomMaison} class="w-full h-48 object-cover" />
+  <div class="p-4">
+    <h2 class="text-xl font-semibold text-gray-900">{offre.nomMaison}</h2>
+    <p class="text-sm text-gray-600">{offre.adresse}</p>
+    <p class="text-sm text-gray-600">Chambres: {offre.nbChambres} | Salles de bain: {offre.nbSdb}</p>
+    <p class="text-sm text-gray-600">Surface: {offre.surface} m²</p>
+    <p class="text-lg font-bold text-gray-900">Prix: {offre.prix} €/mois</p>
+    <button class={`mt-4 w-full py-2 px-4 rounded-md text-white ${offre.favori ? 'bg-red-600' : 'bg-gray-400'} hover:bg-opacity-80`}>
+      {offre.favori ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+    </button>
+  </div>
+</div>
